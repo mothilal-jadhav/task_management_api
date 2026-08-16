@@ -5,7 +5,7 @@ from app.database import get_db
 from app.models.user import User
 from app.schemas.user import UserResponse, UserCreate
 from app.security import hash_password
-
+from app.auth import get_current_user
 
 
 router = APIRouter(
@@ -13,9 +13,11 @@ router = APIRouter(
     tags=["Users"]
 )
 
-@router.get("/",response_model=list[UserResponse])
-
-def get_users(db: Session = Depends(get_db)):
+@router.get("/", response_model=list[UserResponse])
+def get_users(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
     users = db.query(User).all()
     return users
 

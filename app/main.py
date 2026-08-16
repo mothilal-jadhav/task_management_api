@@ -1,6 +1,12 @@
-from fastapi import FastAPI
+from pathlib import Path
+from dotenv import load_dotenv
 
-from app.routers import users
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / ".env")
+
+from fastapi import FastAPI
+from app.routers import users, aut
 
 app = FastAPI(
     title= "TASK MANAGEMENT API",
@@ -8,6 +14,7 @@ app = FastAPI(
 )
 
 app.include_router(users.router)
+app.include_router(aut.router)
 
 @app.get("/")
 def root():
