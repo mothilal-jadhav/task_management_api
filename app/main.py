@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from app.routers import users
 
 app = FastAPI(
-    title= "TASK MANAGEMENT API"
+    title= "TASK MANAGEMENT API",
     version = "1.0.0"
 )
 
