@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.user import User
 from app.schemas.user import UserResponse, UserCreate
+from app.security import hash_password
 
 
 
@@ -31,7 +32,7 @@ def create_user( user_data: UserCreate, db: Session = Depends(get_db)):
     user = User(
         user_name = user_data.user_name,
         email = user_data.email,
-        password_hash = user_data.password,
+        password_hash=hash_password(user_data.password),
         role_id = user_data.role_id
     )
 
